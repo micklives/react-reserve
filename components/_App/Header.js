@@ -13,7 +13,7 @@ function Header() {
   const isActive = route => route === router.pathname;
 
   return (
-    <Menu id="menu" fluid inverted>
+    <Menu id="menu" fluid inverted stackable>
       <Container text>
         <Link href="/">
           <Menu.Item header active={isActive("/")}>
