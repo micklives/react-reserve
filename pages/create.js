@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import baseUrl from "../utils/baseUrl";
-import catchErrors from '../utils/catchErrors'
+import catchErrors from "../utils/catchErrors";
 import {
   Form,
   Input,
@@ -26,7 +26,7 @@ const CreateProduct = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [error, setError] = useState('')
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const isProduct = Object.values(product).every(item => Boolean(item));
@@ -47,8 +47,8 @@ const CreateProduct = () => {
     try {
       event.preventDefault();
       setLoading(true);
+      setError("");
       const mediaUrl = await handleImageUpload();
-      console.log({ mediaUrl });
       const url = `${baseUrl}/api/product`;
       const { name, price, description } = product;
       const payload = { name, price, description, mediaUrl };
@@ -56,7 +56,7 @@ const CreateProduct = () => {
       setProduct(INITIAL_PRODUCT);
       setSuccess(true);
     } catch (error) {
-      catchErrors(error, setError)
+      catchErrors(error, setError);
     } finally {
       setLoading(false);
     }
@@ -78,12 +78,13 @@ const CreateProduct = () => {
         <Icon name="add" color="orange" />
         Create New Product
       </Header>
-      <Form loading={loading} error={Boolean(error)} success={success} onSubmit={handleSubmit}>
-        <Message
-          error
-          header="Oops"
-          content={error}
-        />
+      <Form
+        loading={loading}
+        error={Boolean(error)}
+        success={success}
+        onSubmit={handleSubmit}
+      >
+        <Message error header="Oops" content={error} />
         <Message
           success
           icon="check"
