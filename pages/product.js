@@ -1,13 +1,14 @@
+import React from "react";
 import axios from "axios";
 import ProductSummary from "../components/Product/ProductSummary";
 import ProductAttributes from "../components/Product/ProductAttributes";
-import baseUrl from '../utils/baseUrl'
+import baseUrl from "../utils/baseUrl";
 
 const Product = ({ product, user }) => {
   return (
     <>
-      <ProductSummary {...product}/>
-      <ProductAttributes user={user} {...product}/> 
+      <ProductSummary user={user} {...product} />
+      <ProductAttributes user={user} {...product} />
     </>
   );
 };
