@@ -6,6 +6,12 @@ export const handleLogin = token => {
   Router.push("/account");
 };
 
+export const handleLogout = () => {
+  cookie.remove("token");
+  window.localStorage.setItem("logout", Date.now());
+  Router.push("/login");
+};
+
 export const redirectUser = (ctx, location) => {
   if (ctx.req) {
     ctx.res.writeHead(302, { Location: location });
