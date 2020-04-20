@@ -6,10 +6,13 @@ import { parseCookies } from "nookies"
 import axios from "axios"
 import baseUrl from "../utils/baseUrl"
 import cookie from "js-cookie"
+import catchErrors from "../utils/catchErrors"
 
 // eslint-disable-next-line react/prop-types
 function Cart({ products, user }) {
   const [cartProducts, setCartProducts] = useState(products)
+  const [success, setSuccess] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleRemoveFromCart = async (productId) => {
     const url = `${baseUrl}/api/cart`
@@ -22,14 +25,31 @@ function Cart({ products, user }) {
     setCartProducts(response.data)
   }
 
+  const handleCheckout = async (paymentData) => {
+    try {
+      setLoading(true)
+      const url = `${baseUrl}/api/checkout`
+      const token = cookie.get("token")
+      const payload = { paymentData }
+      const headers = { headers: { Authorization: token } }
+      await axios.post(url, payload, headers)
+      setSuccess(true)
+    } catch (error) {
+      catchErrors(error, window.alert)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
-    <Segment>
+    <Segment loading={loading}>
       <CartItemList
         handleRemoveFromCart={handleRemoveFromCart}
         products={cartProducts}
         user={user}
+        success
       />
-      <CartSummary products={cartProducts} />
+      <CartSummary products={cartProducts} handleCheckout={handleCheckout} success />
     </Segment>
   )
 }

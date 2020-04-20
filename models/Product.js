@@ -1,8 +1,7 @@
-import mongoose from 'mongoose'
-import shortid from 'shortid'
+import mongoose from "mongoose"
+import shortid from "shortid"
 
-// const mongoose = require("mongoose");
-const { String, Number } = mongoose.Schema.Types;
+const { String, Number } = mongoose.Schema.Types
 
 const ProductSchema = new mongoose.Schema({
   name: {
@@ -26,6 +25,5 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-});
-export default mongoose.models.Product || mongoose.model("Product", ProductSchema);
-// module.exports = Product;
+})
+export default mongoose.models.Product || mongoose.model("Product", ProductSchema)

@@ -1,9 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Item, Header, Segment, Icon, Button } from "semantic-ui-react"
+import { Item, Header, Segment, Icon, Message, Button } from "semantic-ui-react"
 import { useRouter } from "next/router"
 
-function CartItemList({ products, user, handleRemoveFromCart }) {
+function CartItemList({ products, user, handleRemoveFromCart, success }) {
   const router = useRouter()
 
   const mapCartProductsToItems = () => {
@@ -26,6 +26,17 @@ function CartItemList({ products, user, handleRemoveFromCart }) {
         />
       ),
     }))
+  }
+
+  if (success) {
+    return (
+      <Message
+        success
+        header="Success"
+        content="Your order and payment has been accepted"
+        icon="star outline"
+      />
+    )
   }
 
   if (products.length === 0) {
